@@ -11,7 +11,7 @@
         <!--Transactions-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TransactionsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TransactionsViewController" customModule="TransactionsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="730"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="70" id="1oK-yJ-jBW">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="70" id="1oK-yJ-jBW" customClass="TransactionTableViewCell" customModule="TransactionsApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1oK-yJ-jBW" id="90Y-MH-dnR">
@@ -78,8 +78,18 @@
                                                         <constraint firstItem="ngv-YA-6Cs" firstAttribute="leading" secondItem="l1r-bO-hvW" secondAttribute="trailing" constant="8" id="vE0-eb-j0z"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="categoryLabel" destination="Uyj-9N-J3V" id="Yl3-E5-BJo"/>
+                                                    <outlet property="costLabel" destination="hTS-sH-xaH" id="o5v-kR-Txb"/>
+                                                    <outlet property="descriptionLabel" destination="2TT-G4-cbm" id="4gs-Da-ZwI"/>
+                                                    <outlet property="transactionImageView" destination="l1r-bO-hvW" id="hVa-OR-L1j"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="wep-Dc-kbx"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="4SA-oG-1KI"/>
+                                        </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rj1-ee-5Gv" userLabel="removeButton">
                                         <rect key="frame" x="0.0" y="730" width="414" height="44"/>
@@ -115,6 +125,11 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="73L-dU-Ood" id="FjO-ZG-WKw"/>
+                        <outlet property="removeButton" destination="Rj1-ee-5Gv" id="oUT-lG-gbh"/>
+                        <outlet property="tableView" destination="OXN-rS-r8q" id="ZA0-oQ-WgO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
