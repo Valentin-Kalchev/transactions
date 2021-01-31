@@ -38,6 +38,14 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         XCTAssertTrue(client.requestedURLs.isEmpty, "Expected to not request data from url when created")
     }
     
+    func test_load_requestsDataFromURL() {
+        let url = URL(string: "http://a-given-url.com")!
+        let (sut, client) = makeSUT(url: url)
+        sut.load(completion: { _ in })
+        
+        XCTAssertEqual(client.requestedURLs, [url])
+    }
+    
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
          
@@ -69,9 +77,9 @@ class RemoteTransactionsLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionsLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteTransactionsLoader(url: anyURL(), client: client)
+        let sut = RemoteTransactionsLoader(url: url, client: client)
         
         trackForMemoryLeak(client, file: file, line: line)
         trackForMemoryLeak(sut, file: file, line: line)
