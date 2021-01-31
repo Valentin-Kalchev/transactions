@@ -12,6 +12,7 @@
 		E09C0D2325C730D0008825B1 /* Transactions.svg in Resources */ = {isa = PBXBuildFile; fileRef = E09C0D2225C730D0008825B1 /* Transactions.svg */; };
 		E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2725C73167008825B1 /* TransactionsLoader.swift */; };
 		E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2B25C7328C008825B1 /* Transaction.swift */; };
+		E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		E09C0D2225C730D0008825B1 /* Transactions.svg */ = {isa = PBXFileReference; lastKnownFileType = file; path = Transactions.svg; sourceTree = SOURCE_ROOT; };
 		E09C0D2725C73167008825B1 /* TransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsLoader.swift; sourceTree = "<group>"; };
 		E09C0D2B25C7328C008825B1 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				E09C0D0A25C72791008825B1 /* Info.plist */,
+				E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */,
 			);
 			path = TransactionsEngineTests;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 					};
 					E09C0D0225C72791008825B1 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -219,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +414,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JKJHN735FS;
@@ -420,6 +426,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.vkalchev.TransactionsEngineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -428,6 +435,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JKJHN735FS;
