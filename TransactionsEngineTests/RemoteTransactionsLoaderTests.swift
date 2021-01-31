@@ -149,6 +149,13 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyData() {
+        let (sut, client) = makeSUT()
+        expect(sut: sut, toCompleteWith: .success([])) {
+            client.complete(withStatusCode: 200, data: data(from: ["data":[]]))
+        }
+    }
+    
     private func expect(sut: RemoteTransactionsLoader, toCompleteWith expectedResult: TransactionsLoader.Result, when action: () -> (), file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for load")
