@@ -137,7 +137,7 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         
         [199, 201, 300, 400, 500].enumerated().forEach { (index, code) in
             expect(sut: sut, toCompleteWith: failure(.invalidData)) {
-                client.complete(withStatusCode: code, at: index)
+                client.complete(withStatusCode: code, data: Data(), at: index)
             }
         }
     }
@@ -154,6 +154,40 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         expect(sut: sut, toCompleteWith: .success([])) {
             client.complete(withStatusCode: 200, data: data(from: ["data":[]]))
         }
+    }
+    
+    func test_load_deliversItemsOn200HTTPResponseWithJSONData() {
+        let (transaction, json) = makeTransaction()
+        let (sut, client) = makeSUT()
+        expect(sut: sut, toCompleteWith: .success([transaction])) {
+            client.complete(withStatusCode: 200, data: data(from: ["data": [json]]))
+        }
+    }
+    
+    private func makeTransaction() -> (transaction: Transaction, json: [String: Any?]) {
+        let transaction = Transaction(id: "id", date: "2018-03-19".date!,
+                                      description: "description",
+                                      category: "category",
+                                      currency: "currency",
+                                      amount: Amount(value: 123, currencyISO: "GBP"),
+                                      product: Product(id: 123, title: "title", icon: URL(string: "http://product-url.com")!))
+        
+        let json: [String: Any?] = ["id": transaction.id,
+                    "date": transaction.date.string,
+                    "description": transaction.description,
+                    "category": transaction.category,
+                    "currency": transaction.currency,
+                    "amount": [
+                        "value": transaction.amount.value,
+                        "currency_iso": transaction.amount.currencyISO
+                    ],
+                    "product": [
+                        "id": transaction.product.id,
+                        "title": transaction.product.title,
+                        "icon": transaction.product.icon.absoluteString
+                    ]]
+        
+        return (transaction, json)
     }
     
     private func expect(sut: RemoteTransactionsLoader, toCompleteWith expectedResult: TransactionsLoader.Result, when action: () -> (), file: StaticString = #file, line: UInt = #line) {
@@ -207,13 +241,13 @@ class RemoteTransactionsLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
         
-        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
             let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
             messages[index].completion(.success((data, response)))
         }
     }
     
-    private func data(from json: [String: Any]) -> Data {
+    private func data(from json: [String: Any?]) -> Data {
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
