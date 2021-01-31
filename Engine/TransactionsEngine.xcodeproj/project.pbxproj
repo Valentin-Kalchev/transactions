@@ -51,7 +51,7 @@
 		E09C0D0325C72791008825B1 /* TransactionsEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09C0D0A25C72791008825B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09C0D1E25C72898008825B1 /* Api_Example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Api_Example.json; sourceTree = "<group>"; };
-		E09C0D2225C730D0008825B1 /* Transactions.svg */ = {isa = PBXFileReference; lastKnownFileType = file; path = Transactions.svg; sourceTree = SOURCE_ROOT; };
+		E09C0D2225C730D0008825B1 /* Transactions.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Transactions.svg; sourceTree = SOURCE_ROOT; };
 		E09C0D2725C73167008825B1 /* TransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsLoader.swift; sourceTree = "<group>"; };
 		E09C0D2B25C7328C008825B1 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoaderTests.swift; sourceTree = "<group>"; };
@@ -501,6 +501,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vkalchev.TransactionsEngine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -527,6 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vkalchev.TransactionsEngine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
