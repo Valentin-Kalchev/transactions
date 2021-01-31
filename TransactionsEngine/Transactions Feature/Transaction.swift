@@ -7,23 +7,33 @@
 
 import Foundation 
 
-struct Amount {
-    let value: Int
-    let currencyISO: String
+public struct Amount {
+    public let value: Int
+    public let currencyISO: String
 }
 
-struct Product {
-    let id: Int
-    let title: String
-    let icon: URL
+public struct Product {
+    public let id: Int
+    public let title: String
+    public let icon: URL
 }
 
-struct Transaction {
-    let id: String
-    let date: Date
-    let description: String
-    let category: String
-    let currency: String
-    let amount: Amount
-    let product: Product
+public struct Transaction {
+    public let id: String
+    public let date: Date
+    public let description: String
+    public let category: String
+    public let currency: String
+    public let amount: Amount
+    public let product: Product
+    
+    public init(id: String, date: Date, description: String, category: String, currency: String, amount: Amount, product: Product) {
+        self.id = id
+        self.date = date
+        self.description = description
+        self.category = category
+        self.currency = currency
+        self.amount = amount
+        self.product = product
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TransactionsLoader {
+public protocol TransactionsLoader {
     typealias Result = Swift.Result<[Transaction], Error>
     func load(completion: @escaping (Result) -> Void)
 }
