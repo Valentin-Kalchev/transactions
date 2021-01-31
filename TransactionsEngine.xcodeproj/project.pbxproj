@@ -10,6 +10,8 @@
 		E09C0D0425C72791008825B1 /* TransactionsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09C0CFA25C72791008825B1 /* TransactionsEngine.framework */; };
 		E09C0D1F25C72898008825B1 /* Api_Example.json in Resources */ = {isa = PBXBuildFile; fileRef = E09C0D1E25C72898008825B1 /* Api_Example.json */; };
 		E09C0D2325C730D0008825B1 /* Transactions.svg in Resources */ = {isa = PBXBuildFile; fileRef = E09C0D2225C730D0008825B1 /* Transactions.svg */; };
+		E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2725C73167008825B1 /* TransactionsLoader.swift */; };
+		E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2B25C7328C008825B1 /* Transaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		E09C0D0A25C72791008825B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09C0D1E25C72898008825B1 /* Api_Example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Api_Example.json; sourceTree = "<group>"; };
 		E09C0D2225C730D0008825B1 /* Transactions.svg */ = {isa = PBXFileReference; lastKnownFileType = file; path = Transactions.svg; sourceTree = SOURCE_ROOT; };
+		E09C0D2725C73167008825B1 /* TransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsLoader.swift; sourceTree = "<group>"; };
+		E09C0D2B25C7328C008825B1 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				E09C0D1E25C72898008825B1 /* Api_Example.json */,
+				E09C0D2625C73150008825B1 /* Transactions Feature */,
 				E09C0D2225C730D0008825B1 /* Transactions.svg */,
 				E09C0CFE25C72791008825B1 /* Info.plist */,
 			);
@@ -84,6 +89,15 @@
 				E09C0D0A25C72791008825B1 /* Info.plist */,
 			);
 			path = TransactionsEngineTests;
+			sourceTree = "<group>";
+		};
+		E09C0D2625C73150008825B1 /* Transactions Feature */ = {
+			isa = PBXGroup;
+			children = (
+				E09C0D2B25C7328C008825B1 /* Transaction.swift */,
+				E09C0D2725C73167008825B1 /* TransactionsLoader.swift */,
+			);
+			path = "Transactions Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +160,7 @@
 				TargetAttributes = {
 					E09C0CF925C72791008825B1 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 					E09C0D0225C72791008825B1 = {
 						CreatedOnToolsVersion = 12.3;
@@ -195,6 +210,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */,
+				E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +357,7 @@
 		E09C0D0F25C72791008825B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -357,6 +375,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vkalchev.TransactionsEngine;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -364,6 +383,7 @@
 		E09C0D1025C72791008825B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -388,6 +408,7 @@
 		E09C0D1225C72791008825B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JKJHN735FS;
@@ -406,6 +427,7 @@
 		E09C0D1325C72791008825B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = JKJHN735FS;
