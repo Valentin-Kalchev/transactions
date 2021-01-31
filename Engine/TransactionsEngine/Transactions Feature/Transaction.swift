@@ -8,10 +8,10 @@
 import Foundation 
 
 public struct Amount: Equatable {
-    public let value: Int
+    public let value: Double
     public let currencyISO: String
     
-    public init(value: Int, currencyISO: String) {
+    public init(value: Double, currencyISO: String) {
         self.value = value
         self.currencyISO = currencyISO
     }

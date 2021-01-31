@@ -8,7 +8,7 @@
 import Foundation
 
 struct RemoteAmount: Decodable {
-    let value: Int
+    let value: Double
     let currency_iso: String
 }
 

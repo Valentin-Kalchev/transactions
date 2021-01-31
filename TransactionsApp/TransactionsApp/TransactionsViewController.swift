@@ -7,25 +7,7 @@
 
 import UIKit
 
-class TransactionCellController {
-    func view(for tableView: UITableView) -> TransactionTableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionTableViewCell") as! TransactionTableViewCell
-        cell.descriptionLabel.text = "description here"
-        cell.categoryLabel.text = "category here"
-        cell.costLabel.text = "cost here"
-        return cell
-    }
-}
-
-class TransactionTableViewCell: UITableViewCell {
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var categoryLabel: UILabel!
-    @IBOutlet var transactionImageView: UIImageView!
-    @IBOutlet var costLabel: UILabel!
-}
-
 class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var editButton: UIButton!
     @IBOutlet var removeButton: UIButton!
@@ -36,9 +18,10 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    var onViewDidLoad: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableModel.append(TransactionCellController())
+        onViewDidLoad?()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
