@@ -9,7 +9,8 @@ import XCTest
 import TransactionsEngine
 
 protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (Error) -> Void)
+    typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
+    func get(from url: URL, completion: @escaping (Result) -> Void)
 }
 
 class RemoteTransactionsLoader: TransactionsLoader {
@@ -18,6 +19,7 @@ class RemoteTransactionsLoader: TransactionsLoader {
     
     enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
     
     init(url: URL, client: HTTPClient) {
@@ -26,8 +28,16 @@ class RemoteTransactionsLoader: TransactionsLoader {
     }
     
     func load(completion: @escaping (TransactionsLoader.Result) -> Void) {
-        self.client.get(from: url) { (error) in
-            completion(.failure(Error.connectivity))
+        self.client.get(from: url) { (result) in
+            switch result {
+            case let .success((_, response)):
+                if response.statusCode != 200 {
+                    completion(.failure(Error.invalidData))
+                }
+                
+            case .failure(_):
+                completion(.failure(Error.connectivity))
+            }
         }
     }
 }
@@ -58,8 +68,18 @@ class RemoteTransactionsLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
          
-        expect(sut: sut, toCompleteWith: .failure(RemoteTransactionsLoader.Error.connectivity)) {
+        expect(sut: sut, toCompleteWith: failure(.connectivity)) {
             client.complete(with: anyError())
+        }
+    }
+    
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        
+        [199, 201, 300, 400, 500].enumerated().forEach { (index, code) in
+            expect(sut: sut, toCompleteWith: failure(.invalidData)) {
+                client.complete(withStatusCode: code, at: index)
+            }
         }
     }
     
@@ -97,20 +117,33 @@ class RemoteTransactionsLoaderTests: XCTestCase {
     }
     
     private class HTTPClientSpy: HTTPClient {
-        var requestedURLs = [URL]()
-        var completions = [(Error) -> Void]()
-        func get(from url: URL, completion: @escaping (Error) -> Void) {
-            requestedURLs.append(url)
-            completions.append(completion)
+        var requestedURLs: [URL] {
+            return messages.map { $0.url }
+        }
+        
+        var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
+        
+        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
+            messages.append((url, completion))
         }
         
         func complete(with error: Error, at index: Int = 0) {
-            completions[index](error)
+            messages[index].completion(.failure(error))
         }
+        
+        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
+            messages[index].completion(.success((data, response)))
+        }
+    }
+    
+    private func failure(_ error: RemoteTransactionsLoader.Error) -> TransactionsLoader.Result {
+        return .failure(error)
     }
 }
 
 extension XCTestCase {
+    
     func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Expected instance to be deallocated", file: file, line: line)
