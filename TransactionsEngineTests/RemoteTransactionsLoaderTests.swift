@@ -46,6 +46,15 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
+    func test_load_requestsDataFromURLTwice() {
+        let url = URL(string: "http://a-given-url.com")!
+        let (sut, client) = makeSUT(url: url)
+        sut.load(completion: { _ in })
+        sut.load(completion: { _ in })
+        
+        XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
          
