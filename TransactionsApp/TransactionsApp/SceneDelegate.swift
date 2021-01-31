@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let url = URL(string: "http://www.mocky.io/v2/5b36325b340000f60cf88903")!
         let client = URLSessionHTTPClient(session: URLSession.shared)
         let loader = RemoteTransactionsLoader(url: url, client: client)
-        window?.rootViewController = TransactionsUIComposer.viewController(loader: loader)
+        window?.rootViewController = TransactionsUIComposer.rootViewController(loader: loader)
         window?.makeKeyAndVisible()
     }
 

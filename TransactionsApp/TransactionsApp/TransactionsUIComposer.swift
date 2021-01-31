@@ -9,21 +9,52 @@ import UIKit
 import TransactionsEngine
 
 final class TransactionsUIComposer {
-    static func viewController(loader: TransactionsLoader) -> UINavigationController {
+    static func rootViewController(loader: TransactionsLoader) -> UINavigationController {
         let (navigationController, viewController) = TransactionsViewController.make()
-        viewController.onViewDidLoad = {
-            loader.load { [weak viewController] (result) in
-                switch result {
-                case let .success(transactions):
-                    DispatchQueue.main.async {
-                        viewController?.tableModel = transactions.map { TransactionCellController(viewModel: TransactionCellViewModel(transaction: $0)) }
-                    }
-                case let .failure(error):
-                    print("Display error: \(error)")
-                }
+        
+        let viewModel = TransactionsViewModel(loader: loader)
+        viewController.refreshController = TransactionsRefreshController(viewModel: viewModel)
+        
+        viewModel.onFeedLoad = { [weak viewController] (transactions) in
+            DispatchQueue.main.async {
+                viewController?.tableModel = transactions.map { TransactionCellController(viewModel: TransactionCellViewModel(transaction: $0)) }
             }
         }
+        
         return navigationController
+    }
+}
+
+final class TransactionsRefreshController {
+    private let viewModel: TransactionsViewModel
+    init(viewModel: TransactionsViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    func refresh() {
+        viewModel.loadTransactions()
+    }
+}
+
+final class TransactionsViewModel {
+    private let loader: TransactionsLoader
+    init(loader: TransactionsLoader) {
+        self.loader = loader
+    }
+    
+    typealias Observer<T> = ((T) -> Void)
+    
+    var onLoadingStateChange: Observer<Bool>?
+    var onFeedLoad: Observer<[Transaction]>?
+    
+    func loadTransactions() {
+        onLoadingStateChange?(true)
+        loader.load { [weak self] (result) in
+            if let transactions = try? result.get() {
+                self?.onFeedLoad?(transactions)
+            }
+            self?.onLoadingStateChange?(false)
+        }
     }
 }
 

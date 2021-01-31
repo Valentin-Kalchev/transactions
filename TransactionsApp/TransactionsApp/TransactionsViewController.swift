@@ -8,20 +8,22 @@
 import UIKit
 
 class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var editButton: UIButton!
     @IBOutlet var removeButton: UIButton!
     
+    var refreshController: TransactionsRefreshController? 
     var tableModel: [TransactionCellController] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    var onViewDidLoad: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
-        onViewDidLoad?()
+        removeButton.isHidden = !tableView.isEditing
+        refreshController?.refresh()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
