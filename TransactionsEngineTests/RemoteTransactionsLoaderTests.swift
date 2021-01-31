@@ -13,6 +13,43 @@ protocol HTTPClient {
     func get(from url: URL, completion: @escaping (Result) -> Void)
 }
 
+struct RemoteAmount: Decodable {
+    let value: Int
+    let currency_iso: String
+}
+
+struct RemoteProduct: Decodable {
+    let id: Int
+    let title: String
+    let icon: String
+}
+
+struct RemoteTransaction: Decodable {
+    let id: String
+    let date: String
+    let description: String
+    let category: String
+    let currency: String
+    let amount: RemoteAmount
+    let product: RemoteProduct
+}
+
+final class RemoteItemsMapper {
+    struct Root: Decodable {
+        let data: [RemoteTransaction]?
+    }
+    
+    private static var OK_200: Int { return 200 }
+    static func map(_ data: Data, from response: HTTPURLResponse) throws -> [RemoteTransaction] {
+        guard response.statusCode == OK_200,
+              let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            throw RemoteTransactionsLoader.Error.invalidData
+        }
+        
+        return root.data ?? []
+    }
+}
+
 class RemoteTransactionsLoader: TransactionsLoader {
     private let client: HTTPClient
     private let url: URL
@@ -30,8 +67,12 @@ class RemoteTransactionsLoader: TransactionsLoader {
     func load(completion: @escaping (TransactionsLoader.Result) -> Void) {
         self.client.get(from: url) { (result) in
             switch result {
-            case let .success((_, response)):
-                if response.statusCode != 200 {
+            case let .success((data, response)):
+                do {
+                    let remoteTransactions = try RemoteItemsMapper.map(data, from: response)
+                    completion(.success(remoteTransactions.toModel()))
+                
+                } catch {
                     completion(.failure(Error.invalidData))
                 }
                 
@@ -41,6 +82,24 @@ class RemoteTransactionsLoader: TransactionsLoader {
         }
     }
 }
+
+private extension Array where Element == RemoteTransaction {
+    func toModel() -> [Transaction] {
+        return self.map { Transaction(id: $0.id,
+                                      date: $0.date.date!,
+                                      description: $0.description,
+                                      category: $0.category,
+                                      currency: $0.currency,
+                                      amount: Amount(value: $0.amount.value,
+                                                     currencyISO: $0.amount.currency_iso),
+                                      
+                                      product: Product(id: $0.product.id,
+                                                       title: $0.product.title,
+                                                       icon: URL(string: $0.product.icon)!))
+        }
+    }
+}
+
 
 class RemoteTransactionsLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
@@ -83,12 +142,22 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSON() {
+        let (sut, client) = makeSUT()
+        expect(sut: sut, toCompleteWith: .success([])) {
+            client.complete(withStatusCode: 200, data: data(from: [:]))
+        }
+    }
+    
     private func expect(sut: RemoteTransactionsLoader, toCompleteWith expectedResult: TransactionsLoader.Result, when action: () -> (), file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for load")
         
         sut.load { (receivedResult) in
             switch (expectedResult, receivedResult) {
+            case (let .success(expectedResult), let .success(receivedResult)):
+                XCTAssertEqual(expectedResult, receivedResult, file: file, line: line)
+                
             case (let .failure(expectedError), let .failure(receivedError)):
                 XCTAssertEqual(expectedError as NSError?, receivedError as NSError?, file: file, line: line)
                 
@@ -135,6 +204,10 @@ class RemoteTransactionsLoaderTests: XCTestCase {
             let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
             messages[index].completion(.success((data, response)))
         }
+    }
+    
+    private func data(from json: [String: Any]) -> Data {
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private func failure(_ error: RemoteTransactionsLoader.Error) -> TransactionsLoader.Result {

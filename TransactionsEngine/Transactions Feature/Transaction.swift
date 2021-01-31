@@ -7,18 +7,29 @@
 
 import Foundation 
 
-public struct Amount {
+public struct Amount: Equatable {
     public let value: Int
     public let currencyISO: String
+    
+    public init(value: Int, currencyISO: String) {
+        self.value = value
+        self.currencyISO = currencyISO
+    }
 }
 
-public struct Product {
+public struct Product: Equatable {
     public let id: Int
     public let title: String
     public let icon: URL
+    
+    public init(id: Int, title: String, icon: URL) {
+        self.id = id
+        self.title = title
+        self.icon = icon
+    }
 }
 
-public struct Transaction {
+public struct Transaction: Equatable {
     public let id: String
     public let date: Date
     public let description: String

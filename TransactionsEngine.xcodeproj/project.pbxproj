@@ -13,6 +13,7 @@
 		E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2725C73167008825B1 /* TransactionsLoader.swift */; };
 		E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2B25C7328C008825B1 /* Transaction.swift */; };
 		E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */; };
+		E09C0D3425C74A44008825B1 /* String+DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3325C74A44008825B1 /* String+DateExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		E09C0D2725C73167008825B1 /* TransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsLoader.swift; sourceTree = "<group>"; };
 		E09C0D2B25C7328C008825B1 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoaderTests.swift; sourceTree = "<group>"; };
+		E09C0D3325C74A44008825B1 /* String+DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DateExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				E09C0D0A25C72791008825B1 /* Info.plist */,
+				E09C0D3325C74A44008825B1 /* String+DateExtension.swift */,
 				E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */,
 			);
 			path = TransactionsEngineTests;
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E09C0D3425C74A44008825B1 /* String+DateExtension.swift in Sources */,
 				E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
