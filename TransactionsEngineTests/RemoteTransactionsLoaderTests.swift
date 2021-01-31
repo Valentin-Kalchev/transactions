@@ -8,99 +8,6 @@
 import XCTest
 import TransactionsEngine
 
-protocol HTTPClient {
-    typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
-    func get(from url: URL, completion: @escaping (Result) -> Void)
-}
-
-struct RemoteAmount: Decodable {
-    let value: Int
-    let currency_iso: String
-}
-
-struct RemoteProduct: Decodable {
-    let id: Int
-    let title: String
-    let icon: String
-}
-
-struct RemoteTransaction: Decodable {
-    let id: String
-    let date: String
-    let description: String
-    let category: String
-    let currency: String
-    let amount: RemoteAmount
-    let product: RemoteProduct
-}
-
-final class RemoteItemsMapper {
-    struct Root: Decodable {
-        let data: [RemoteTransaction]?
-    }
-    
-    private static var OK_200: Int { return 200 }
-    static func map(_ data: Data, from response: HTTPURLResponse) throws -> [RemoteTransaction] {
-        guard response.statusCode == OK_200,
-              let root = try? JSONDecoder().decode(Root.self, from: data) else {
-            throw RemoteTransactionsLoader.Error.invalidData
-        }
-        
-        return root.data ?? []
-    }
-}
-
-class RemoteTransactionsLoader: TransactionsLoader {
-    private let client: HTTPClient
-    private let url: URL
-    
-    enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
-    
-    init(url: URL, client: HTTPClient) {
-        self.url = url
-        self.client = client
-    }
-    
-    func load(completion: @escaping (TransactionsLoader.Result) -> Void) {
-        self.client.get(from: url) { [weak self] (result) in
-            guard self != nil else { return }
-            switch result {
-            case let .success((data, response)):
-                do {
-                    let remoteTransactions = try RemoteItemsMapper.map(data, from: response)
-                    completion(.success(remoteTransactions.toModel()))
-                
-                } catch {
-                    completion(.failure(Error.invalidData))
-                }
-                
-            case .failure(_):
-                completion(.failure(Error.connectivity))
-            }
-        }
-    }
-}
-
-private extension Array where Element == RemoteTransaction {
-    func toModel() -> [Transaction] {
-        return self.map { Transaction(id: $0.id,
-                                      date: $0.date.date!,
-                                      description: $0.description,
-                                      category: $0.category,
-                                      currency: $0.currency,
-                                      amount: Amount(value: $0.amount.value,
-                                                     currencyISO: $0.amount.currency_iso),
-                                      
-                                      product: Product(id: $0.product.id,
-                                                       title: $0.product.title,
-                                                       icon: URL(string: $0.product.icon)!))
-        }
-    }
-}
-
 
 class RemoteTransactionsLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
@@ -244,49 +151,11 @@ class RemoteTransactionsLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private class HTTPClientSpy: HTTPClient {
-        var requestedURLs: [URL] {
-            return messages.map { $0.url }
-        }
-        
-        var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
-        
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-            messages.append((url, completion))
-        }
-        
-        func complete(with error: Error, at index: Int = 0) {
-            messages[index].completion(.failure(error))
-        }
-        
-        func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
-            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
-            messages[index].completion(.success((data, response)))
-        }
-    }
-    
     private func data(from json: [String: Any?]) -> Data {
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private func failure(_ error: RemoteTransactionsLoader.Error) -> TransactionsLoader.Result {
         return .failure(error)
-    }
-}
-
-extension XCTestCase {
-    
-    func trackForMemoryLeak(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Expected instance to be deallocated", file: file, line: line)
-        }
-    }
-    
-    func anyError() -> NSError {
-        return NSError(domain: "any error", code: 0)
-    }
-    
-    func anyURL() -> URL {
-        return URL(string: "http://any-url.com")!
     }
 }

@@ -1,5 +1,5 @@
 //
-//  Date+StringExtension.swift
+//  String+DateExtension.swift
 //  TransactionsEngineTests
 //
 //  Created by Valentin Kalchev (Zuant) on 31/01/21.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-extension Date {
-    var string: String? {
+extension String {
+    public var date: Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: self)
+        return dateFormatter.date(from: self)
     }
 }

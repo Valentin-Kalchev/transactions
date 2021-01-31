@@ -13,8 +13,16 @@
 		E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2725C73167008825B1 /* TransactionsLoader.swift */; };
 		E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2B25C7328C008825B1 /* Transaction.swift */; };
 		E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */; };
-		E09C0D3425C74A44008825B1 /* String+DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3325C74A44008825B1 /* String+DateExtension.swift */; };
-		E09C0D3825C74E5B008825B1 /* Date+StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */; };
+		E09C0D3D25C751CE008825B1 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3C25C751CE008825B1 /* HTTPClient.swift */; };
+		E09C0D4125C751EC008825B1 /* RemoteTransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D4025C751EC008825B1 /* RemoteTransactionsLoader.swift */; };
+		E09C0D4425C75212008825B1 /* String+DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3325C74A44008825B1 /* String+DateExtension.swift */; };
+		E09C0D4525C75212008825B1 /* Date+StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */; };
+		E09C0D4A25C7523E008825B1 /* String+DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3325C74A44008825B1 /* String+DateExtension.swift */; };
+		E09C0D4D25C75241008825B1 /* Date+StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */; };
+		E09C0D5125C7525D008825B1 /* RemoteTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D5025C7525D008825B1 /* RemoteTransaction.swift */; };
+		E09C0D5525C7526E008825B1 /* RemoteItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D5425C7526E008825B1 /* RemoteItemsMapper.swift */; };
+		E09C0D5925C75291008825B1 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D5825C75290008825B1 /* HTTPClientSpy.swift */; };
+		E09C0D5D25C752BF008825B1 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D5C25C752BF008825B1 /* SharedTestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +47,12 @@
 		E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoaderTests.swift; sourceTree = "<group>"; };
 		E09C0D3325C74A44008825B1 /* String+DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DateExtension.swift"; sourceTree = "<group>"; };
 		E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+StringExtension.swift"; sourceTree = "<group>"; };
+		E09C0D3C25C751CE008825B1 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		E09C0D4025C751EC008825B1 /* RemoteTransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoader.swift; sourceTree = "<group>"; };
+		E09C0D5025C7525D008825B1 /* RemoteTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransaction.swift; sourceTree = "<group>"; };
+		E09C0D5425C7526E008825B1 /* RemoteItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteItemsMapper.swift; sourceTree = "<group>"; };
+		E09C0D5825C75290008825B1 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		E09C0D5C25C752BF008825B1 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +95,9 @@
 		E09C0CFC25C72791008825B1 /* TransactionsEngine */ = {
 			isa = PBXGroup;
 			children = (
+				E09C0D3325C74A44008825B1 /* String+DateExtension.swift */,
+				E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */,
+				E09C0D3B25C751C0008825B1 /* Transactions API */,
 				E09C0D1E25C72898008825B1 /* Api_Example.json */,
 				E09C0D2625C73150008825B1 /* Transactions Feature */,
 				E09C0D2225C730D0008825B1 /* Transactions.svg */,
@@ -93,9 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				E09C0D0A25C72791008825B1 /* Info.plist */,
-				E09C0D3325C74A44008825B1 /* String+DateExtension.swift */,
-				E09C0D3725C74E5B008825B1 /* Date+StringExtension.swift */,
+				E09C0D5825C75290008825B1 /* HTTPClientSpy.swift */,
 				E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */,
+				E09C0D5C25C752BF008825B1 /* SharedTestHelpers.swift */,
 			);
 			path = TransactionsEngineTests;
 			sourceTree = "<group>";
@@ -107,6 +124,17 @@
 				E09C0D2725C73167008825B1 /* TransactionsLoader.swift */,
 			);
 			path = "Transactions Feature";
+			sourceTree = "<group>";
+		};
+		E09C0D3B25C751C0008825B1 /* Transactions API */ = {
+			isa = PBXGroup;
+			children = (
+				E09C0D3C25C751CE008825B1 /* HTTPClient.swift */,
+				E09C0D4025C751EC008825B1 /* RemoteTransactionsLoader.swift */,
+				E09C0D5025C7525D008825B1 /* RemoteTransaction.swift */,
+				E09C0D5425C7526E008825B1 /* RemoteItemsMapper.swift */,
+			);
+			path = "Transactions API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,7 +249,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */,
+				E09C0D4125C751EC008825B1 /* RemoteTransactionsLoader.swift in Sources */,
+				E09C0D5125C7525D008825B1 /* RemoteTransaction.swift in Sources */,
+				E09C0D4525C75212008825B1 /* Date+StringExtension.swift in Sources */,
 				E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */,
+				E09C0D5525C7526E008825B1 /* RemoteItemsMapper.swift in Sources */,
+				E09C0D3D25C751CE008825B1 /* HTTPClient.swift in Sources */,
+				E09C0D4425C75212008825B1 /* String+DateExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,9 +263,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E09C0D3425C74A44008825B1 /* String+DateExtension.swift in Sources */,
+				E09C0D4A25C7523E008825B1 /* String+DateExtension.swift in Sources */,
+				E09C0D5925C75291008825B1 /* HTTPClientSpy.swift in Sources */,
+				E09C0D5D25C752BF008825B1 /* SharedTestHelpers.swift in Sources */,
 				E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */,
-				E09C0D3825C74E5B008825B1 /* Date+StringExtension.swift in Sources */,
+				E09C0D4D25C75241008825B1 /* Date+StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
