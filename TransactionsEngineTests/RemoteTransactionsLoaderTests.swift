@@ -7,8 +7,7 @@
 
 import XCTest
 import TransactionsEngine
-
-
+ 
 class RemoteTransactionsLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
