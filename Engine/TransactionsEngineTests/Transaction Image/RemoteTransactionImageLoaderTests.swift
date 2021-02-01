@@ -20,7 +20,8 @@ class RemoteTransactionImageLoader {
     }
     
     func loadImageData(from url: URL, completion: @escaping (TransactionImageLoader.Result) -> Void) {
-        client.get(from: url) { (result) in
+        client.get(from: url) { [weak self] (result) in
+            guard self != nil else { return }
             switch result {
             case let .success((data, response)):
                 if response.statusCode != 200 {
@@ -83,6 +84,19 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         expect(sut: sut, toCompleteWith: .success(nonEmptyData)) {
             client.complete(withStatusCode: 200, data: nonEmptyData)
         }
+    }
+    
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let client = HTTPClientSpy()
+        var sut: RemoteTransactionImageLoader? = RemoteTransactionImageLoader(client: client)
+        
+        var results = [TransactionImageLoader.Result]()
+        sut?.loadImageData(from: anyURL(), completion: { (result) in
+            results.append(result)
+        })
+        sut = nil
+        client.complete(withStatusCode: 200, data: Data("non-empty data".utf8))
+        XCTAssertTrue(results.isEmpty, "Instance delivers results after being deallocated")
     }
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionImageLoader, client: HTTPClientSpy) {
