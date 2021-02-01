@@ -27,6 +27,8 @@
 		E09C0D6B25C7541A008825B1 /* TransactionsAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D6A25C7541A008825B1 /* TransactionsAPIEndToEndTests.swift */; };
 		E09C0D6D25C7541A008825B1 /* TransactionsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09C0CFA25C72791008825B1 /* TransactionsEngine.framework */; };
 		E09C0DFA25C80CB1008825B1 /* RemoteTransactionImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DF925C80CB1008825B1 /* RemoteTransactionImageLoaderTests.swift */; };
+		E09C0E0D25C8147F008825B1 /* RemoteTransactionImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0E0C25C8147F008825B1 /* RemoteTransactionImageLoader.swift */; };
+		E09C0E1525C814B4008825B1 /* TransactionImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0E1425C814B4008825B1 /* TransactionImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		E09C0D6A25C7541A008825B1 /* TransactionsAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsAPIEndToEndTests.swift; sourceTree = "<group>"; };
 		E09C0D6C25C7541A008825B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09C0DF925C80CB1008825B1 /* RemoteTransactionImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionImageLoaderTests.swift; sourceTree = "<group>"; };
+		E09C0E0C25C8147F008825B1 /* RemoteTransactionImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionImageLoader.swift; sourceTree = "<group>"; };
+		E09C0E1425C814B4008825B1 /* TransactionImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				E09C0D3C25C751CE008825B1 /* HTTPClient.swift */,
 				E09C0D6025C75316008825B1 /* URLSessionHTTPClient.swift */,
 				E09C0DF325C80C3C008825B1 /* Transactions */,
+				E09C0E0B25C81469008825B1 /* Transaction Image */,
 			);
 			path = "Transactions API";
 			sourceTree = "<group>";
@@ -194,6 +199,15 @@
 			isa = PBXGroup;
 			children = (
 				E09C0DF925C80CB1008825B1 /* RemoteTransactionImageLoaderTests.swift */,
+			);
+			path = "Transaction Image";
+			sourceTree = "<group>";
+		};
+		E09C0E0B25C81469008825B1 /* Transaction Image */ = {
+			isa = PBXGroup;
+			children = (
+				E09C0E1425C814B4008825B1 /* TransactionImageLoader.swift */,
+				E09C0E0C25C8147F008825B1 /* RemoteTransactionImageLoader.swift */,
 			);
 			path = "Transaction Image";
 			sourceTree = "<group>";
@@ -343,8 +357,10 @@
 				E09C0D5125C7525D008825B1 /* RemoteTransaction.swift in Sources */,
 				E09C0D4525C75212008825B1 /* Date+StringExtension.swift in Sources */,
 				E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */,
+				E09C0E0D25C8147F008825B1 /* RemoteTransactionImageLoader.swift in Sources */,
 				E09C0D5525C7526E008825B1 /* RemoteItemsMapper.swift in Sources */,
 				E09C0D3D25C751CE008825B1 /* HTTPClient.swift in Sources */,
+				E09C0E1525C814B4008825B1 /* TransactionImageLoader.swift in Sources */,
 				E09C0D4425C75212008825B1 /* String+DateExtension.swift in Sources */,
 				E09C0D6125C75316008825B1 /* URLSessionHTTPClient.swift in Sources */,
 			);

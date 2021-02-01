@@ -8,39 +8,6 @@
 import XCTest
 import TransactionsEngine
 
-class RemoteTransactionImageLoader {
-    private let client: HTTPClient
-    init(client: HTTPClient) {
-        self.client = client
-    }
-    
-    public enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
-    
-    func loadImageData(from url: URL, completion: @escaping (TransactionImageLoader.Result) -> Void) {
-        client.get(from: url) { [weak self] (result) in
-            guard self != nil else { return }
-            switch result {
-            case let .success((data, response)):
-                if response.statusCode != 200 {
-                    completion(.failure(Error.invalidData))
-                } else {
-                    completion(.success(data))
-                }
-            case .failure:
-                completion(.failure(Error.connectivity))
-            }
-        }
-    }
-}
-
-protocol TransactionImageLoader {
-    typealias Result = Swift.Result<Data, Error>
-    func loadImageData(from url: URL, completion: @escaping (Result) -> Void)
-}
-
 class RemoteTransactionImageLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
