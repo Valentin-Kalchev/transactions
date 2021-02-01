@@ -18,6 +18,15 @@ class TransactionCellController {
         cell.descriptionLabel.text = viewModel.description
         cell.categoryLabel.text = viewModel.category
         cell.costLabel.text = viewModel.cost
+        cell.transactionImageView.image = nil
+        
+        viewModel.onImageLoad = { [weak cell] (image) in
+            DispatchQueue.main.async {
+                cell?.transactionImageView?.image = image
+            }
+        }
+        viewModel.loadImage()
+        
         return cell
     }
 }

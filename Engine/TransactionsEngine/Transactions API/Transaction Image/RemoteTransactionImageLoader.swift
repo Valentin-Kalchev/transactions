@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RemoteTransactionImageLoader {
+public class RemoteTransactionImageLoader: TransactionImageLoader {
     private let client: HTTPClient
     public init(client: HTTPClient) {
         self.client = client

@@ -8,7 +8,6 @@
 import UIKit
 
 class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var removeButton: UIButton!
     @IBOutlet var stateController: TransactionsStateController!
@@ -17,7 +16,7 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
     var tableModel = [TransactionCellController]()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad() 
         configureStateController()
         setRemoveButtonState(isEditing: stateController.isEditing)
         refreshController?.refresh()
