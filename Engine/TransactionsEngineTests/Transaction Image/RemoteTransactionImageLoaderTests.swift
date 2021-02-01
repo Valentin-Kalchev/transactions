@@ -22,9 +22,11 @@ class RemoteTransactionImageLoader {
     func loadImageData(from url: URL, completion: @escaping (TransactionImageLoader.Result) -> Void) {
         client.get(from: url) { (result) in
             switch result {
-            case let .success((_, response)):
+            case let .success((data, response)):
                 if response.statusCode != 200 {
                     completion(.failure(Error.invalidData))
+                } else {
+                    completion(.success(data))
                 }
             case .failure:
                 completion(.failure(Error.connectivity))
@@ -75,6 +77,14 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversReceivedNonEmptyDataOn200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        let nonEmptyData = Data("non-empty data".utf8)
+        expect(sut: sut, toCompleteWith: .success(nonEmptyData)) {
+            client.complete(withStatusCode: 200, data: nonEmptyData)
+        }
+    }
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionImageLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteTransactionImageLoader(client: client)
@@ -87,8 +97,12 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         let exp = expectation(description: "Wait for load")
         sut.loadImageData(from: anyURL()) { (receivedResult) in
             switch (expectedResult, receivedResult) {
+            case (let .success(expectedData), let .success(receivedData)):
+                XCTAssertEqual(expectedData, receivedData, file: file, line: line)
+                
             case (let .failure(expectedError), let .failure(receivedError)):
                 XCTAssertEqual(expectedError as NSError?, receivedError as NSError?, file: file, line: line)
+                
             default:
                 XCTFail("Expected \(expectedResult), got \(receivedResult) instead", file: file, line: line)
             }
