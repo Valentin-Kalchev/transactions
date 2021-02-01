@@ -22,6 +22,8 @@
 		E09C0DD925C760C9008825B1 /* TransactionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DD825C760C9008825B1 /* TransactionCellViewModel.swift */; };
 		E09C0DDD25C760F5008825B1 /* TransactionsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DDC25C760F5008825B1 /* TransactionsUIComposer.swift */; };
 		E09C0DE525C777EA008825B1 /* TransactionsStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */; };
+		E09C0DEC25C7FDDD008825B1 /* TransactionsRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DEB25C7FDDD008825B1 /* TransactionsRefreshController.swift */; };
+		E09C0DF025C7FE03008825B1 /* TransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DEF25C7FE03008825B1 /* TransactionsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		E09C0DD825C760C9008825B1 /* TransactionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellViewModel.swift; sourceTree = "<group>"; };
 		E09C0DDC25C760F5008825B1 /* TransactionsUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsUIComposer.swift; sourceTree = "<group>"; };
 		E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsStateController.swift; sourceTree = "<group>"; };
+		E09C0DEB25C7FDDD008825B1 /* TransactionsRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsRefreshController.swift; sourceTree = "<group>"; };
+		E09C0DEF25C7FE03008825B1 /* TransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 				E09C0DD825C760C9008825B1 /* TransactionCellViewModel.swift */,
 				E09C0DCC25C75F82008825B1 /* TransactionCellController.swift */,
 				E09C0DC725C75F71008825B1 /* TransactionTableViewCell.swift */,
+				E09C0DEB25C7FDDD008825B1 /* TransactionsRefreshController.swift */,
+				E09C0DEF25C7FE03008825B1 /* TransactionsViewModel.swift */,
 				E09C0D8925C75703008825B1 /* TransactionsViewController.swift */,
 				E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */,
 				E09C0D8B25C75703008825B1 /* Main.storyboard */,
@@ -302,8 +308,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E09C0D8A25C75703008825B1 /* TransactionsViewController.swift in Sources */,
+				E09C0DF025C7FE03008825B1 /* TransactionsViewModel.swift in Sources */,
 				E09C0DD925C760C9008825B1 /* TransactionCellViewModel.swift in Sources */,
 				E09C0D8625C75703008825B1 /* AppDelegate.swift in Sources */,
+				E09C0DEC25C7FDDD008825B1 /* TransactionsRefreshController.swift in Sources */,
 				E09C0DC825C75F71008825B1 /* TransactionTableViewCell.swift in Sources */,
 				E09C0DCD25C75F82008825B1 /* TransactionCellController.swift in Sources */,
 				E09C0D8825C75703008825B1 /* SceneDelegate.swift in Sources */,

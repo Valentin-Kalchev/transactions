@@ -37,9 +37,7 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
                 self.tableView.allowsMultipleSelection = false
                 
                 self.tableView.indexPathsForSelectedRows?.forEach({ (indexPath) in
-                    let cell = self.tableView.cellForRow(at: indexPath) as? TransactionTableViewCell
-                    cell?.highlightView.isHidden = true
-                    
+                    self.tableView.unhighlightCell(at: indexPath)
                     self.tableView.deselectRow(at: indexPath, animated: true)
                 })
             }
@@ -57,16 +55,14 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if stateController.isEditing {
-            let cell = tableView.cellForRow(at: indexPath) as? TransactionTableViewCell
-            cell?.highlightView.isHidden = false
+            tableView.unhighlightCell(at: indexPath)
         }
         setRemoveButtonState(isEditing: stateController.isEditing)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if stateController.isEditing {
-            let cell = tableView.cellForRow(at: indexPath) as? TransactionTableViewCell
-            cell?.highlightView.isHidden = true
+            tableView.highlightCell(at: indexPath)
         }
         setRemoveButtonState(isEditing: stateController.isEditing)
     }
@@ -80,20 +76,39 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func removeButtonTapped(_ sender: UIButton) {
+        removeSelectedRows()
+        removeButton.isHidden = true
+    }
+    
+    private func removeSelectedRows() {
         guard let indexPathsForSelectedRows = tableView.indexPathsForSelectedRows else {
             return
         }
         
-        let rows = indexPathsForSelectedRows.map { $0.row }.sorted(by: { (a, b) -> Bool in
+        removeTableModels(at: indexPathsForSelectedRows)
+        tableView.deleteRows(at: indexPathsForSelectedRows, with: .fade)
+    }
+    
+    private func removeTableModels(at indexes: [IndexPath]) {
+        let rows = indexes.map { $0.row }.sorted(by: { (a, b) -> Bool in
             a > b
         })
         
         rows.forEach({ (row) in
             tableModel.remove(at: row)
         })
-        
-        tableView.deleteRows(at: indexPathsForSelectedRows, with: .fade)
-        removeButton.isHidden = true
+    }
+}
+
+private extension UITableView {
+    func unhighlightCell(at indexPath: IndexPath) {
+        let cell = self.cellForRow(at: indexPath) as? TransactionTableViewCell
+        cell?.highlightView.isHidden = false
+    }
+    
+    func highlightCell(at indexPath: IndexPath) {
+        let cell = self.cellForRow(at: indexPath) as? TransactionTableViewCell
+        cell?.highlightView.isHidden = true
     }
 }
 

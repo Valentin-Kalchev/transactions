@@ -26,39 +26,6 @@ final class TransactionsUIComposer {
     }
 }
 
-final class TransactionsRefreshController {
-    private let viewModel: TransactionsViewModel
-    init(viewModel: TransactionsViewModel) {
-        self.viewModel = viewModel
-    }
-    
-    func refresh() {
-        viewModel.loadTransactions()
-    }
-}
-
-final class TransactionsViewModel {
-    private let loader: TransactionsLoader
-    init(loader: TransactionsLoader) {
-        self.loader = loader
-    }
-    
-    typealias Observer<T> = ((T) -> Void)
-    
-    var onLoadingStateChange: Observer<Bool>?
-    var onFeedLoad: Observer<[Transaction]>?
-    
-    func loadTransactions() {
-        onLoadingStateChange?(true)
-        loader.load { [weak self] (result) in
-            if let transactions = try? result.get() {
-                self?.onFeedLoad?(transactions)
-            }
-            self?.onLoadingStateChange?(false)
-        }
-    }
-}
-
 private extension TransactionsViewController {
     static func make() -> (UINavigationController, TransactionsViewController) {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: TransactionsViewController.self))
