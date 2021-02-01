@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E09C0D0425C72791008825B1 /* TransactionsEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09C0CFA25C72791008825B1 /* TransactionsEngine.framework */; };
 		E09C0D1F25C72898008825B1 /* Api_Example.json in Resources */ = {isa = PBXBuildFile; fileRef = E09C0D1E25C72898008825B1 /* Api_Example.json */; };
-		E09C0D2325C730D0008825B1 /* Transactions.svg in Resources */ = {isa = PBXBuildFile; fileRef = E09C0D2225C730D0008825B1 /* Transactions.svg */; };
 		E09C0D2825C73167008825B1 /* TransactionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2725C73167008825B1 /* TransactionsLoader.swift */; };
 		E09C0D2C25C7328C008825B1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2B25C7328C008825B1 /* Transaction.swift */; };
 		E09C0D3025C73306008825B1 /* RemoteTransactionsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */; };
@@ -54,7 +53,6 @@
 		E09C0D0325C72791008825B1 /* TransactionsEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09C0D0A25C72791008825B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09C0D1E25C72898008825B1 /* Api_Example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Api_Example.json; sourceTree = "<group>"; };
-		E09C0D2225C730D0008825B1 /* Transactions.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Transactions.svg; sourceTree = SOURCE_ROOT; };
 		E09C0D2725C73167008825B1 /* TransactionsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsLoader.swift; sourceTree = "<group>"; };
 		E09C0D2B25C7328C008825B1 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		E09C0D2F25C73306008825B1 /* RemoteTransactionsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTransactionsLoaderTests.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				E09C0D3B25C751C0008825B1 /* Transactions API */,
 				E09C0D1E25C72898008825B1 /* Api_Example.json */,
 				E09C0D2625C73150008825B1 /* Transactions Feature */,
-				E09C0D2225C730D0008825B1 /* Transactions.svg */,
 				E09C0CFE25C72791008825B1 /* Info.plist */,
 			);
 			path = TransactionsEngine;
@@ -327,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E09C0D1F25C72898008825B1 /* Api_Example.json in Resources */,
-				E09C0D2325C730D0008825B1 /* Transactions.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

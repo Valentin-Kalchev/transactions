@@ -13,8 +13,6 @@ final class TransactionsUIComposer {
         let (navigationController, viewController) = TransactionsViewController.make()
         
         let viewModel = TransactionsViewModel(loader: loader)
-        viewController.refreshController = TransactionsRefreshController(viewModel: viewModel)
-        
         viewModel.onFeedLoad = { [weak viewController] (transactions) in
             DispatchQueue.main.async {
                 viewController?.tableModel = transactions
@@ -27,6 +25,8 @@ final class TransactionsUIComposer {
                 viewController?.tableView.reloadData()
             }
         }
+        
+        viewController.refreshController = TransactionsRefreshController(viewModel: viewModel)
         
         return navigationController
     }

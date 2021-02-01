@@ -8,6 +8,7 @@
 import UIKit
 
 class TransactionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var removeButton: UIButton!
     @IBOutlet var stateController: TransactionsStateController!
@@ -22,7 +23,42 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         refreshController?.refresh()
     }
     
-    private func configureStateController() { 
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableModel.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableModel[indexPath.row].view(for: tableView)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if stateController.isEditing {
+            tableView.unhighlightCell(at: indexPath)
+        }
+        setRemoveButtonState(isEditing: stateController.isEditing)
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if stateController.isEditing {
+            tableView.highlightCell(at: indexPath)
+        }
+        setRemoveButtonState(isEditing: stateController.isEditing)
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func removeButtonTapped(_ sender: UIButton) {
+        removeSelectedRows()
+        removeButton.isHidden = true
+    }
+    
+    // MARK: - Private
+    
+    private func configureStateController() {
         stateController.onEditingStateChange = { [weak self] (isEditing) in
             guard let self = self else { return }
             
@@ -44,41 +80,6 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableModel.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableModel[indexPath.row].view(for: tableView)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if stateController.isEditing {
-            tableView.unhighlightCell(at: indexPath)
-        }
-        setRemoveButtonState(isEditing: stateController.isEditing)
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if stateController.isEditing {
-            tableView.highlightCell(at: indexPath)
-        }
-        setRemoveButtonState(isEditing: stateController.isEditing)
-    }
-    
-    private func setRemoveButtonState(isEditing: Bool) {
-        if !isEditing || tableView.indexPathsForSelectedRows?.isEmpty ?? true {
-            removeButton.isHidden = true
-        } else {
-            removeButton.isHidden = false
-        }
-    }
-    
-    @IBAction func removeButtonTapped(_ sender: UIButton) {
-        removeSelectedRows()
-        removeButton.isHidden = true
-    }
-    
     private func removeSelectedRows() {
         guard let indexPathsForSelectedRows = tableView.indexPathsForSelectedRows else {
             return
@@ -96,6 +97,14 @@ class TransactionsViewController: UIViewController, UITableViewDelegate, UITable
         rows.forEach({ (row) in
             tableModel.remove(at: row)
         })
+    }
+    
+    private func setRemoveButtonState(isEditing: Bool) {
+        if !isEditing || tableView.indexPathsForSelectedRows?.isEmpty ?? true {
+            removeButton.isHidden = true
+        } else {
+            removeButton.isHidden = false
+        }
     }
 }
 
