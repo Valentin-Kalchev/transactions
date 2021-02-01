@@ -39,6 +39,14 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
+    func test_load_requestsDataFromURLTwice() {
+        let url = URL(string: "http://a-given-url.com")!
+        let (sut, client) = makeSUT()
+        sut.loadImageData(from: url, completion: { _ in })
+        sut.loadImageData(from: url, completion: { _ in })
+        XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionImageLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteTransactionImageLoader(client: client)
