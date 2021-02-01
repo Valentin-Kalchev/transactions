@@ -16,11 +16,19 @@ class RemoteTransactionImageLoader {
     
     public enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
     
     func loadImageData(from url: URL, completion: @escaping (TransactionImageLoader.Result) -> Void) {
-        client.get(from: url) { (_) in
-            completion(.failure(Error.connectivity))
+        client.get(from: url) { (result) in
+            switch result {
+            case let .success((_, response)):
+                if response.statusCode != 200 {
+                    completion(.failure(Error.invalidData))
+                }
+            case .failure:
+                completion(.failure(Error.connectivity))
+            }
         }
     }
 }
@@ -58,8 +66,13 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         }
     }
     
-    private func failure(_ error: RemoteTransactionImageLoader.Error) -> TransactionImageLoader.Result {
-        return .failure(error)
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        [199, 201, 300, 400, 500].enumerated().forEach { (index, code) in
+            expect(sut: sut, toCompleteWith: failure(.invalidData)) {
+                client.complete(withStatusCode: code, data: Data(), at: index)
+            }
+        }
     }
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionImageLoader, client: HTTPClientSpy) {
@@ -85,5 +98,9 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func failure(_ error: RemoteTransactionImageLoader.Error) -> TransactionImageLoader.Result {
+        return .failure(error)
     }
 }
