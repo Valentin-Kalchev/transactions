@@ -13,6 +13,12 @@ class RemoteTransactionImageLoader {
     init(client: HTTPClient) {
         self.client = client
     }
+    
+    func loadImageData(from url: URL, completion: @escaping (TransactionImageLoader.Result) -> Void) {
+        client.get(from: url) { (_) in
+            
+        }
+    }
 }
 
 protocol TransactionImageLoader {
@@ -24,6 +30,13 @@ class RemoteTransactionImageLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
         XCTAssertTrue(client.requestedURLs.isEmpty, "Expected to not request data from url when created")
+    }
+    
+    func test_load_requestsDataFromURL() {
+        let url = URL(string: "http://a-given-url.com")!
+        let (sut, client) = makeSUT()
+        sut.loadImageData(from: url, completion: { _ in })
+        XCTAssertEqual(client.requestedURLs, [url])
     }
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: RemoteTransactionImageLoader, client: HTTPClientSpy) {
