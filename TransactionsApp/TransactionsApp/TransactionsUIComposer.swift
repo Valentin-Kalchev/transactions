@@ -18,6 +18,7 @@ final class TransactionsUIComposer {
         viewModel.onFeedLoad = { [weak viewController] (transactions) in
             DispatchQueue.main.async {
                 viewController?.tableModel = transactions.map { TransactionCellController(viewModel: TransactionCellViewModel(transaction: $0)) }
+                viewController?.tableView.reloadData()
             }
         }
         

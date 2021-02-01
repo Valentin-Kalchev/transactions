@@ -12,4 +12,5 @@ class TransactionTableViewCell: UITableViewCell {
     @IBOutlet var categoryLabel: UILabel!
     @IBOutlet var transactionImageView: UIImageView!
     @IBOutlet var costLabel: UILabel!
+    @IBOutlet var highlightView: UIView! 
 }

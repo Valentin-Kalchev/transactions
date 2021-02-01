@@ -21,6 +21,7 @@
 		E09C0DD425C75FDD008825B1 /* TransactionsEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E09C0DD225C75FDD008825B1 /* TransactionsEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E09C0DD925C760C9008825B1 /* TransactionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DD825C760C9008825B1 /* TransactionCellViewModel.swift */; };
 		E09C0DDD25C760F5008825B1 /* TransactionsUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DDC25C760F5008825B1 /* TransactionsUIComposer.swift */; };
+		E09C0DE525C777EA008825B1 /* TransactionsStateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		E09C0DD225C75FDD008825B1 /* TransactionsEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TransactionsEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E09C0DD825C760C9008825B1 /* TransactionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellViewModel.swift; sourceTree = "<group>"; };
 		E09C0DDC25C760F5008825B1 /* TransactionsUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsUIComposer.swift; sourceTree = "<group>"; };
+		E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsStateController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				E09C0DCC25C75F82008825B1 /* TransactionCellController.swift */,
 				E09C0DC725C75F71008825B1 /* TransactionTableViewCell.swift */,
 				E09C0D8925C75703008825B1 /* TransactionsViewController.swift */,
+				E09C0DE425C777EA008825B1 /* TransactionsStateController.swift */,
 				E09C0D8B25C75703008825B1 /* Main.storyboard */,
 				E09C0D8E25C75706008825B1 /* Assets.xcassets */,
 				E09C0D9025C75706008825B1 /* LaunchScreen.storyboard */,
@@ -304,6 +307,7 @@
 				E09C0DC825C75F71008825B1 /* TransactionTableViewCell.swift in Sources */,
 				E09C0DCD25C75F82008825B1 /* TransactionCellController.swift in Sources */,
 				E09C0D8825C75703008825B1 /* SceneDelegate.swift in Sources */,
+				E09C0DE525C777EA008825B1 /* TransactionsStateController.swift in Sources */,
 				E09C0DDD25C760F5008825B1 /* TransactionsUIComposer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

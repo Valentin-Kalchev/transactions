@@ -19,11 +19,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2XU-dc-qY3">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OXN-rS-r8q">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OXN-rS-r8q">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="730"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="70" id="1oK-yJ-jBW" customClass="TransactionTableViewCell" customModule="TransactionsApp" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="70" id="1oK-yJ-jBW" customClass="TransactionTableViewCell" customModule="TransactionsApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1oK-yJ-jBW" id="90Y-MH-dnR">
@@ -63,9 +63,15 @@
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbC-Ji-Cmf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="hbC-Ji-Cmf" firstAttribute="top" secondItem="90Y-MH-dnR" secondAttribute="top" id="6MK-lm-VWb"/>
                                                         <constraint firstItem="hTS-sH-xaH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="90Y-MH-dnR" secondAttribute="top" constant="2" id="6yO-LF-RPo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="hbC-Ji-Cmf" secondAttribute="trailing" id="8PR-iV-Bor"/>
                                                         <constraint firstItem="l1r-bO-hvW" firstAttribute="leading" secondItem="90Y-MH-dnR" secondAttribute="leading" constant="20" id="An5-dq-4uh"/>
                                                         <constraint firstItem="hTS-sH-xaH" firstAttribute="centerY" secondItem="2TT-G4-cbm" secondAttribute="centerY" priority="999" id="NVK-qn-xux"/>
                                                         <constraint firstItem="ngv-YA-6Cs" firstAttribute="centerY" secondItem="l1r-bO-hvW" secondAttribute="centerY" id="OCx-OM-wS6"/>
@@ -74,14 +80,17 @@
                                                         <constraint firstAttribute="bottom" secondItem="ngv-YA-6Cs" secondAttribute="bottom" constant="15" id="fnv-HE-TgV"/>
                                                         <constraint firstItem="hTS-sH-xaH" firstAttribute="leading" secondItem="ngv-YA-6Cs" secondAttribute="trailing" constant="8" id="h66-vm-yLF"/>
                                                         <constraint firstItem="ngv-YA-6Cs" firstAttribute="top" secondItem="90Y-MH-dnR" secondAttribute="top" constant="15" id="laT-IQ-ESm"/>
+                                                        <constraint firstItem="hbC-Ji-Cmf" firstAttribute="leading" secondItem="90Y-MH-dnR" secondAttribute="leading" id="rgG-NE-BU4"/>
                                                         <constraint firstItem="l1r-bO-hvW" firstAttribute="centerY" secondItem="90Y-MH-dnR" secondAttribute="centerY" id="uLm-RQ-nga"/>
                                                         <constraint firstItem="ngv-YA-6Cs" firstAttribute="leading" secondItem="l1r-bO-hvW" secondAttribute="trailing" constant="8" id="vE0-eb-j0z"/>
+                                                        <constraint firstAttribute="bottom" secondItem="hbC-Ji-Cmf" secondAttribute="bottom" id="yEi-ek-IzY"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="categoryLabel" destination="Uyj-9N-J3V" id="Yl3-E5-BJo"/>
                                                     <outlet property="costLabel" destination="hTS-sH-xaH" id="o5v-kR-Txb"/>
                                                     <outlet property="descriptionLabel" destination="2TT-G4-cbm" id="4gs-Da-ZwI"/>
+                                                    <outlet property="highlightView" destination="hbC-Ji-Cmf" id="qzE-95-njO"/>
                                                     <outlet property="transactionImageView" destination="l1r-bO-hvW" id="hVa-OR-L1j"/>
                                                 </connections>
                                             </tableViewCell>
@@ -101,6 +110,9 @@
                                         <state key="normal" title="Remove">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="removeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kln-x6-IbC"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -122,16 +134,24 @@
                                 <state key="normal" title="Edit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="Qxl-3u-qiq" eventType="touchUpInside" id="moc-st-Of9"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editButton" destination="73L-dU-Ood" id="FjO-ZG-WKw"/>
                         <outlet property="removeButton" destination="Rj1-ee-5Gv" id="oUT-lG-gbh"/>
+                        <outlet property="stateController" destination="Qxl-3u-qiq" id="n4C-fY-ig3"/>
                         <outlet property="tableView" destination="OXN-rS-r8q" id="ZA0-oQ-WgO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="Qxl-3u-qiq" customClass="TransactionsStateController" customModule="TransactionsApp" customModuleProvider="target">
+                    <connections>
+                        <outlet property="editButton" destination="73L-dU-Ood" id="LpW-Gu-Ih9"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="697.10144927536237" y="137.94642857142856"/>
         </scene>
